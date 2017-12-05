@@ -10,14 +10,19 @@ public class StudentServiceImpl implements StudentService{
 	private int count;
 	
 	
-	public StudentServiceImpl(int count) {
+	public StudentServiceImpl() {
 		this.count = 0;
-		students = new StudentBean[count];
+		students = new StudentBean[4];
 		// TODO Auto-generated constructor stub
 		}
 	@Override
 	public void addStudent(StudentBean student) {
-		students[count] = student;
+		if(count == students.length) {
+			StudentBean[] homePlus = new StudentBean[count + 10];
+			System.arraycopy(students, 0, homePlus, 0, count);
+			students = homePlus;
+		}
+		this.students[count] = student;
 		count++;
 	}
 	
@@ -48,7 +53,6 @@ public class StudentServiceImpl implements StudentService{
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return count;
 	}
 	@Override
@@ -69,29 +73,54 @@ public class StudentServiceImpl implements StudentService{
 	public StudentBean[] findStudentByName(String name) {
 		StudentBean[] students = null;
 		int matchCount = 0;
-		for(int i = 1; i < count; i ++) {
+		for(int i = 0; i < count; i ++) {
 			if(name.equals(this.students[i].getName())) {
 				matchCount++;
 			}
 		}
 		if(matchCount != 0 ) {
 			students = new StudentBean[matchCount];
-			for(int i = 0, j = 0; i < count; i++) {
+			int j = 0;
+			for(int i = 0; i < count; i++) {
 				if(name.equals(this.students[i].getName())) {
 					students[j] = this.students[i];
 					j++;
-					// 맞으면 j는 일시 증가해서 for loop를 벗어남
+					// 1맞으면 j는 일시 증가해서 for loop를 벗어남
 					if(j == matchCount){
 						break;
 					}
 				}
-			
-		}
+			}
 		}
 		
 		
 		return students;
 	}
-
+	@Override
+	public void updatePassword(StudentBean student) {
+		 for(int i = 0; i <= count; i++) {
+			if(student.getId().equals(this.students[i].getId())) {
+				this.students[i].setPass(student.getPass()); 
+				break;
+			}
+		} /* */
+		/*	
+		 * StudentBean t = findStudentById(student.getId());
+		 * t.setPass(student.getPass());*/
+ 
+		 /* this.findStudentById(student.getId()).setPass(student.getPass());
+		  *	copy object (복제 객체) method가 하나의 객체가 됨으로 객체안에 객체가 들어가는 구조가 생성될 수 도 있음
+		  */	
+	}
+	@Override
+	public void deliteId(String next) {
+		for(int i = 0; i <= count; i++) {
+				if(next.equals(this.students[i].getId())) {
+					this.students[i] = this.students[count-1];
+					students[count - 1] = null; 
+					count --;
+					break;
+					}
+				}
+			}
 }
-

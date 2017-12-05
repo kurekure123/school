@@ -12,4 +12,6 @@ public interface StudentService {
 	public StudentBean[] list(/*파라 미터*/);
 	public StudentBean findStudentById(String id);
 	StudentBean[] findStudentByName(String name);
+	public void updatePassword(StudentBean student);
+	public void deliteId(String next);
 }

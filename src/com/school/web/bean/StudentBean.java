@@ -5,7 +5,7 @@ public class StudentBean {
 	private int kor, eng, math ;
 	// 멤버 변수
 	
-	public void setId(String Id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getId() {
@@ -15,9 +15,9 @@ public class StudentBean {
 		this.pass = pass;
 	}
 	public String getPass() {
-		return this.id;
+		return this.pass;
 	}
-	public void setName(String Name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public String getName() {
@@ -44,5 +44,4 @@ public class StudentBean {
 	public String toString() {
 		return String.format("[이름] %s [ID] %s [비번] %s", name, id, pass);
 	}
-	
 }
